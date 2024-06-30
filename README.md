@@ -1,6 +1,6 @@
 # B-LoRA for Kohya-SS
 
-This repository contains tools needed for training B-LoRA files with [kohya-ss/sd_scripts](https://github.com/kohya-ss/sd-scripts).
+This repository contains tools needed for training [B-LoRA](https://github.com/yardenfren1996/B-LoRA) files with [kohya-ss/sd_scripts](https://github.com/kohya-ss/sd-scripts).
 
 ## What is B-LoRA and why should I care?
 
