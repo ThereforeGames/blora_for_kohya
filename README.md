@@ -20,7 +20,7 @@ Additionally, the B-LoRA trainer has several non-standard options that I have sp
 
 1. Install the [Lycoris network](https://github.com/KohakuBlueleaf/LyCORIS).
 2. Download this repo and place all its files into the root of your `kohya-ss` directory.
-3. Make a copy of `sdxl_blora_project.bat`, adjust it to your needs (in particular, the variables and paths), then launch to begin training.
+3. Make a copy of `sdxl_blora_project.bat`, adjust it to your needs (in particular, the topmost variables and paths), then launch to begin training.
 4. Run `blora_slicer.bat` on the resulting LoRA to filter out `content` or `style` blocks. This will produce a final, smaller LoRA that you can use in the WebUI or Comfy.
 
 Note that while these batch files are for Windows, it should be trivial to adapt them to Linux.

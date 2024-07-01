@@ -1,3 +1,6 @@
+# Adapted from the original B-LoRA inference.py script
+# Modified by Therefore Games
+
 import torch, argparse
 from diffusers import StableDiffusionXLPipeline, AutoencoderKL
 from safetensors.torch import save_file, load_file
