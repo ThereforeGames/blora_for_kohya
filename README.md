@@ -29,7 +29,7 @@ Note that while these batch files are for Windows, it should be trivial to adapt
 
 ## Notes on `sdxl_blora_project.bat`
 
-- The B-LoRA method responds well to training a substantially higher number of dimensions than usual. On my GeForce 3090, I have set the rank to `1024` and observed great results for `content` without overfitting. This does increase training time and hardware requirements, however.
+- The B-LoRA method responds well to training a substantially higher number of dimensions than usual. On my GeForce 3090, I have set the rank to `1024` and observed great results for `content` without overfitting. This does increase training time and hardware requirements, however. For anime characters and other simple subjects, you can probably get away with a much lower rank.
 - Despite the use of the `prodigy` optimizer, B-LoRA training time is pretty slow, possibly due to options such as `use_bias_correction`. You can try switching to `AdamW` (all other optimizer settings can remain the same.)
 - As a point of reference, one of my character datasets contains 168 images and takes ~3 hours to train to 3000 steps. This yields incredibly good likeness without significant signs of overfitting.
 
