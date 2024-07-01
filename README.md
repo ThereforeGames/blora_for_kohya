@@ -12,7 +12,7 @@ Combining it with sd_scripts gives you access to awesome features like aspect ra
 
 ## How does B-LoRA work?
 
-B-LoRA targets specific unet blocks that correlate surprisingly well to `content` and `style`. It seems best to learn these traits in tandem, and then use the provided `blora_slicer.py` on the final LoRA to preserve only the traits you want.
+B-LoRA targets specific unet blocks that correlate surprisingly well to `content` and `style`. It seems best to learn these traits in tandem, and then use the provided `blora_slicer.py` on the final LoRA to preserve only the traits you want to keep.
 
 Additionally, the B-LoRA trainer has several non-standard options that I have specified in `sdxl_blora_project.bat`.
 
@@ -21,7 +21,7 @@ Additionally, the B-LoRA trainer has several non-standard options that I have sp
 1. Install the [Lycoris network](https://github.com/KohakuBlueleaf/LyCORIS).
 2. Download this repo and place all its files into the root of your `kohya-ss` directory.
 3. Make a copy of `sdxl_blora_project.bat`, adjust it to your needs (in particular, the variables and paths), then launch to begin training.
-4. Run `blora_slicer.bat` on the resulting LoRA to filter out `content` or `style`. This will produce a final, smaller LoRA that you can use in the WebUI or Comfy.
+4. Run `blora_slicer.bat` on the resulting LoRA to filter out `content` or `style` blocks. This will produce a final, smaller LoRA that you can use in the WebUI or Comfy.
 
 Note that while these batch files are for Windows, it should be trivial to adapt them to Linux.
 
