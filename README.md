@@ -1,6 +1,6 @@
 # B-LoRA for Kohya-SS
 
-This repository contains tools needed for training [B-LoRA](https://github.com/yardenfren1996/B-LoRA) files with [kohya-ss/sd_scripts](https://github.com/kohya-ss/sd-scripts).
+This repository contains tools needed for training [B-LoRA](https://github.com/yardenfren1996/B-LoRA) files with [kohya-ss/sd-scripts](https://github.com/kohya-ss/sd-scripts).
 
 ## What is B-LoRA and why should I care?
 
@@ -8,7 +8,7 @@ The B-LoRA method *"enables implicit style-content separation"* for SDXL LoRAs. 
 
 B-LoRA's approach works quite well, and it deserves more recognition in the broader Stable Diffusion community.
 
-Combining it with sd_scripts gives you access to awesome features like aspect ratio bucketing.
+Combining it with sd-scripts gives you access to awesome features like aspect ratio bucketing.
 
 ## How does B-LoRA work?
 
@@ -24,6 +24,8 @@ Additionally, the B-LoRA trainer has several non-standard options that I have sp
 4. Run `blora_slicer.bat` on the resulting LoRA to filter out `content` or `style` blocks. This will produce a final, smaller LoRA that you can use in the WebUI or Comfy.
 
 Note that while these batch files are for Windows, it should be trivial to adapt them to Linux.
+
+If you're using the Kohya GUI instead of sd-scripts, the Lycoris features are pre-installed and you will need to plug in the `sdxl_blora_project.bat` settings by hand.
 
 ---
 
