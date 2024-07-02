@@ -46,6 +46,13 @@ You only need to set up at least one of these arguments:
 
 The script will output your final `model.safetensors` to the same directory.
 
+## Notes on Lycoris presets
+
+The Lycoris preset determines which unet blocks to train.
+
+- `blora_content_style.toml`: This preset matches the original B-LoRA method, training content and style blocks in tandem.
+- `blora_content_layout_style.toml`: In addition to content and style, this preset targets blocks that allegedly correlate to image layout. This can potentially improve learning/reduce potential for overfitting, but it has a couple drawbacks: 1) higher VRAM requirement, limiting the number of dimensions you can train. 2) In my initial testing, the layout blocks appear to contain some information that affects character likeness, or what I would classify as "content."
+
 ---
 
 ⭐ Feel free to give this repo a star if you found it helpful.

@@ -1,3 +1,3 @@
 call ./venv/Scripts/activate
-python blora_slicer.py --content_lora="C:/path/to/lora.safetensors" --debug
+python blora_slicer.py --loras C:/path/to/lora.safetensors --traits content --debug
 pause

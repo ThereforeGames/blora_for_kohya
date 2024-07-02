@@ -1,19 +1,35 @@
 # Adapted from the original B-LoRA inference.py script
-# Modified by Therefore Games
 
-import torch, argparse
-from diffusers import StableDiffusionXLPipeline, AutoencoderKL
+import torch, argparse, json
 from safetensors.torch import save_file, load_file
 
+print("B-LoRA Slicer v0.1.0 by Therefore Games")
+
+print("Parsing arguments...")
+
 parser = argparse.ArgumentParser(description='Process some paths and parameters.')
-parser.add_argument('--content_lora', type=str, default=None, help='Path to content lora')
-parser.add_argument('--style_lora', type=str, default=None, help='Path to style lora')
-parser.add_argument('--output_path', type=str, default="model.safetensors", help='Path to new file')
-parser.add_argument('--content_alpha', type=float, default=1.0, help='Content alpha value')
-parser.add_argument('--style_alpha', type=float, default=1.0, help='Style alpha value')
-parser.add_argument('--debug', action='store_true', help='Debug mode')
+parser.add_argument("--loras", type=str, nargs="*", required=True, help="Path(s) to one or more LoRA safetensors.")
+parser.add_argument("--traits", type=str, nargs="*", default=["content"], help="A list of traits to filter from the LoRAs, in the same order as the LoRAs.")
+parser.add_argument("--alphas", type=float, nargs="*", default=[1.0], help="A list of alpha values to scale the LoRAs, in the same order as the LoRAs.")
+parser.add_argument("--output_path", type=str, default="model.safetensors", help="Path to new file")
+parser.add_argument("--debug", action="store_true", help="Debug mode")
 
 args = parser.parse_args()
+
+# If there are more traits than LoRAs, repeat the LoRAs for the remaining traits
+if len(args.traits) > len(args.loras):
+	print("More traits than LoRAs detected. Repeating the last LoRA for the remaining traits.")
+	args.loras += [args.loras[-1]] * (len(args.traits) - len(args.loras))
+
+# If there are fewer traits than LoRAs, repeat "content" for the remaining LoRAs
+if len(args.traits) < len(args.loras):
+	print("More LoRAs than traits detected. Targeting 'content' for the remaining LoRAs.")
+	args.traits += ["content"] * (len(args.loras) - len(args.traits))
+
+# If there are fewer alphas than LoRAs, repeat 1.0 for the remaining LoRAs
+if len(args.alphas) < len(args.loras):
+	print("More LoRAs than alphas detected. Using alpha value 1.0 for the remaining LoRAs.")
+	args.alphas += [1.0] * (len(args.loras) - len(args.alphas))
 
 
 def is_belong_to_blocks(key, whitelist, blacklist):
@@ -47,43 +63,23 @@ def scale_lora(state_dict, alpha):
 		raise type(e)(f'failed to scale_lora, due to: {e}')
 
 
-CONTENT_BLOCKS = {
-    "whitelist": ["lora_unet_output_blocks_0_1_"],
-    "blacklist": ["ff_net", "proj_in", "proj_out", "alpha"],
-}
+print("Loading unet block traits...")
+with open("blora_traits.json", "r") as f:
+	traits = json.load(f)
 
-STYLE_BLOCKS = {
-    "whitelist": ["lora_unet_output_blocks_1_1_"],
-    "blacklist": ["ff_net", "proj_in", "proj_out", "alpha"],
-}
+# For each LoRA, filter and scale the traits
+loras = []
+for i, lora_path in enumerate(args.loras):
+	print(f"Loading LoRA: {lora_path}")
+	lora_sd = load_file(lora_path)
+	lora = filter_lora(lora_sd, traits[args.traits[i]]["whitelist"], traits[args.traits[i]]["blacklist"])
+	lora = scale_lora(lora, args.alphas[i])
+	loras.append(lora)
 
-# Get Content B-LoRA SD
-if args.content_lora is not None:
-	print(f"Loading content LoRA: {args.content_lora}")
-	content_B_LoRA_sd = load_file(args.content_lora)
-	content_B_LoRA = filter_lora(content_B_LoRA_sd, CONTENT_BLOCKS["whitelist"], CONTENT_BLOCKS["blacklist"])  # BLOCKS['content']
-	content_B_LoRA = scale_lora(content_B_LoRA, args.content_alpha)
-else:
-	print("No content LoRA provided.")
-	content_B_LoRA = {}
-
-# Get Style B-LoRA SD
-if args.style_lora is not None:
-	print(f"Loading style LoRA: {args.style_lora}")
-	content_B_LoRA_sd = load_file(args.style_lora)
-	style_B_LoRA = filter_lora(style_B_LoRA_sd, STYLE_BLOCKS["whitelist"], STYLE_BLOCKS["blacklist"])  # BLOCKS['style']
-	style_B_LoRA = scale_lora(style_B_LoRA, args.style_alpha)
-else:
-	print("No style LoRA provided.")
-	style_B_LoRA = {}
-
-# Merge B-LoRAs SD
-if args.content_lora and args.style_lora:
-	res_lora = {**content_B_LoRA, **style_B_LoRA}
-elif args.content_lora:
-	res_lora = content_B_LoRA
-elif args.style_lora:
-	res_lora = style_B_LoRA
+# Merge B-LoRAs
+res_lora = {}
+for lora in loras:
+	res_lora = {**res_lora, **lora}
 
 print("Saving new model...")
 save_file(res_lora, args.output_path)

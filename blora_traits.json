@@ -1,0 +1,17 @@
+{
+	"content":
+	{
+		"whitelist": ["lora_unet_output_blocks_0_1_"],
+		"blacklist": ["ff_net", "proj_in", "proj_out", "alpha"]
+	},
+	"layout":
+	{
+		"whitelist": ["lora_unet_input_blocks_8_1_"],
+		"blacklist": ["ff_net", "proj_in", "proj_out", "alpha"]
+	},
+	"style":
+	{
+		"whitelist": ["lora_unet_output_blocks_1_1_"],
+		"blacklist": ["ff_net", "proj_in", "proj_out", "alpha"]
+	}
+}

@@ -5,6 +5,7 @@ unet_target_module = [
 ]
 unet_target_name = [
   "^(?!.*(ff\\.net|proj)).*output_blocks\\.0\\.1\\..*$", # Content
+  "^(?!.*(ff\\.net|proj)).*input_blocks\\.8\\.1\\..*$", # Layout
   "^(?!.*(ff\\.net|proj)).*output_blocks\\.1\\.1\\..*$" # Style
 ]
 text_encoder_target_module = [
