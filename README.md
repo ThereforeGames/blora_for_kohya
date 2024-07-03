@@ -39,12 +39,16 @@ If you're using the Kohya GUI instead of sd-scripts, the Lycoris features are pr
 
 This tool is adapted from B-LoRA's `inference.py`.
 
-You only need to set up at least one of these arguments:
+You only need to set up one argument:
 
-- `--content_lora`: Path to a `safetensors` file to include the content blocks from, presumably the combined LoRA you trained with kohya.
-- `--style_lora`: Path to a `safetensors` file to include the style blocks from.
+- `--loras`: Path(s) to one or more `safetensors` files to extract the blocks from. Most likely, you want to set this to the combined B-LoRA you trained with kohya.
 
-The script will output your final `model.safetensors` to the same directory.
+Additional optional arguments are available:
+
+- `--traits`: A list of traits to filter from your LoRAs, in the same order as the LoRAs. Defaults to `content`. Check the included `blora_traits.json` for supported traits.
+- `--alphas`: A list of alpha values to scale the LoRAs, in the same order as the LoRAs. Defaults to `1.0`, or full strength.
+- `--output_path`: The save location of the sliced-up LoRA. Defaults to `model.safetensors` in the same directory as this script.
+- `--debug`: Print some diagnostic information to the console.
 
 ## Notes on Lycoris presets
 
