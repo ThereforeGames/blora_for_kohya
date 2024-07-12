@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 0.2.0 - 12 July 2024
+
+### Added
+- New preset `sdxl_blora_fast.bat`: Optimized training settings to dramatically improve convergence time, while (hopefully) maintaining quality - feedback would be appreciated
+
+### Changed
+- Renamed preset `sdxl_blora_project.bat` to `sdxl_blora_classic.bat` and added 500 steps of warmup to match origin B-LoRA repo
+
 ## 0.1.0 - 1 July 2024
 
 ### Added

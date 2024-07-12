@@ -29,7 +29,7 @@ accelerate launch --num_cpu_threads_per_process 8 sdxl_train_network.py ^
 	--mixed_precision="fp16" ^
 	--caption_extension=".txt" ^
 	--lr_scheduler="cosine" ^
-	--lr_warmup_steps=0 ^
+	--lr_warmup_steps=500 ^
 	--network_train_unet_only ^
 	--prior_loss_weight=0 ^
 	--optimizer_type="prodigy" ^

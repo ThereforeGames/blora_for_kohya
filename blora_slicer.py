@@ -3,7 +3,7 @@
 import torch, argparse, json
 from safetensors.torch import save_file, load_file
 
-print("B-LoRA Slicer v0.1.0 by Therefore Games")
+print("B-LoRA Slicer v0.2.0 by Therefore Games")
 
 print("Parsing arguments...")
 
