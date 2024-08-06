@@ -13,5 +13,9 @@
 	{
 		"whitelist": ["lora_unet_output_blocks_1_1_"],
 		"blacklist": ["ff_net", "proj_in", "proj_out", "alpha"]
+	},
+	"clip_2_content": {
+        "whitelist": ["lora_te2_text_model_encoder_layers_0_"],
+        "blacklist": ["ff_net", "proj_in", "proj_out", "alpha"]	
 	}
 }

@@ -9,13 +9,13 @@ accelerate launch --num_cpu_threads_per_process 8 sdxl_train_network.py ^
 	--dataset_config="./_in/lora/sdxl/%NAME%/config.toml" ^
 	--output_dir="./_out/lora/sdxl/%PROJECT%" ^
 	--output_name="%PROJECT%" ^
-	--network_args="preset=C:/absolute/path/to/lycoris_presets/blora_content_style.toml" ^
+	--network_args="preset=C:/absolute/path/to/lycoris_presets/bdora_content_style_clip.toml" ^
 	--resolution="1024,1024" ^
 	--save_model_as="safetensors" ^
 	--network_module="lycoris.kohya" ^
-	--max_train_steps=3000 ^
+	--max_train_steps=5000 ^
 	--save_every_n_steps=1000  ^
-	--save_every_n_epochs=1 ^
+	--save_every_n_epochs=5 ^
 	--network_dim=%RANK% ^
 	--network_alpha=%RANK% ^
 	--no_half_vae ^
@@ -36,6 +36,6 @@ accelerate launch --num_cpu_threads_per_process 8 sdxl_train_network.py ^
 	--max_grad_norm=1.0 ^
 	--learning_rate=1.0 ^
 	--seed=0 ^
-	--optimizer_args weight_decay=1e-04 betas=(0.9,0.999) eps=1e-08 decouple=True use_bias_correction=False safeguard_warmup=True beta3=None
+	--optimizer_args weight_decay=1e-04 betas=(0.9,0.9999) eps=1e-08 decouple=True use_bias_correction=True safeguard_warmup=True beta3=None
 
 pause

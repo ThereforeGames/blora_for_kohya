@@ -3,7 +3,7 @@
 import torch, argparse, json
 from safetensors.torch import save_file, load_file
 
-print("B-LoRA Slicer v0.2.0 by Therefore Games")
+print("B-LoRA Slicer v0.3.0 by Therefore Games")
 
 print("Parsing arguments...")
 
@@ -13,6 +13,7 @@ parser.add_argument("--traits", type=str, nargs="*", default=["content"], help="
 parser.add_argument("--alphas", type=float, nargs="*", default=[1.0], help="A list of alpha values to scale the LoRAs, in the same order as the LoRAs.")
 parser.add_argument("--output_path", type=str, default="model.safetensors", help="Path to new file")
 parser.add_argument("--debug", action="store_true", help="Debug mode")
+parser.add_argument("--not_combined", action="store_true", help="Save each LoRA separately")
 
 args = parser.parse_args()
 
@@ -76,10 +77,15 @@ for i, lora_path in enumerate(args.loras):
 	lora = scale_lora(lora, args.alphas[i])
 	loras.append(lora)
 
-# Merge B-LoRAs
-res_lora = {}
-for lora in loras:
-	res_lora = {**res_lora, **lora}
+if args.not_combined:
+	print("Saving LoRAs separately...")
+	for i, lora in enumerate(loras):
+		save_file(lora, f"{args.traits[i]}_{i}.safetensors")
+else:
+	# Merge B-LoRAs
+	res_lora = {}
+	for lora in loras:
+		res_lora = {**res_lora, **lora}
 
-print("Saving new model...")
-save_file(res_lora, args.output_path)
+	print("Saving new model...")
+	save_file(res_lora, args.output_path)

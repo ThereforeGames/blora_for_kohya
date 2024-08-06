@@ -1,0 +1,15 @@
+enable_conv = false
+
+# An example for use different algo/settings in "full" preset
+unet_target_module = [
+]
+unet_target_name = [
+  "^(?!.*(ff\\.net|proj)).*output_blocks\\.0\\.1\\..*$",
+  "^(?!.*(ff\\.net|proj)).*output_blocks\\.1\\.1\\..*$"
+]
+text_encoder_target_module = [
+]
+text_encoder_target_name = [
+	"text_model.encoder.layers.0",
+	"^text_model\\.encoder\\.layers\\.1(?!\\d)(\\..*)?$"
+]
