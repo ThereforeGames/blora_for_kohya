@@ -9,7 +9,7 @@ accelerate launch --num_cpu_threads_per_process 8 sdxl_train_network.py ^
 	--dataset_config="./_in/lora/sdxl/%NAME%/config.toml" ^
 	--output_dir="./_out/lora/sdxl/%PROJECT%" ^
 	--output_name="%PROJECT%" ^
-	--network_args="preset=C:/absolute/path/to/lycoris_presets/bdora_content_style_clip.toml" ^
+	--network_args "preset=C:/absolute/path/to/lycoris_presets/bdora_content_style_clip.toml" dora_wd=True ^
 	--resolution="1024,1024" ^
 	--save_model_as="safetensors" ^
 	--network_module="lycoris.kohya" ^
